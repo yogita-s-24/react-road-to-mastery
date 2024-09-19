@@ -1,9 +1,9 @@
+//find out the different word from given two strings
 var uncommonFromSentences = function (s1, s2) {
   const word1 = s1.split(" ");
   const word2 = s2.split(" ");
 
   const combined_list = word1.concat(word2);
-
   console.log(combined_list);
 
   let output = [];
@@ -22,6 +22,5 @@ var uncommonFromSentences = function (s1, s2) {
       output = output.filter((item) => item !== word);
     }
   }
-
   return output;
 };
