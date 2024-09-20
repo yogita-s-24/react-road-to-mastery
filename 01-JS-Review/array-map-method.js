@@ -173,3 +173,10 @@ const essentialData = books.map((book) => ({
 }));
 essentialData;
 
+function toNumberArray(stringarray){
+  const newArray = stringarray.map(Number);
+  return newArray;  
+}
+
+console.log(toNumberArray(["1", "12", "2", "34"]))
+ 
