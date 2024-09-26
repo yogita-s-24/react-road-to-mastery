@@ -12,21 +12,22 @@ export default function App() {
   // const [test, setTest] = useState({name : "Yogtia"});
 
   const handlePrevious = () => {
-    if (step > 1) setStep(step - 1);
+    if (step > 1) {
+      setStep((s) => s - 1);
+    }
   };
 
   const handleNext = () => {
-    if (step < 3) setStep(step + 1);
+    if (step < 3) {
+      setStep((s) => s + 1);
+      setStep((s) => s + 1);
+    }
     // setTest({name : "Yogtia"});
   };
 
   return (
     <div>
-      <button
-        className="close"
-        onClick={() => {
-          setisOpen(!isOpen);
-        }}>
+      <button className="close" onClick={() => setisOpen((is) => !is)}>
         &times;
       </button>
       {isOpen && (
