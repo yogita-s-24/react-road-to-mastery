@@ -1,5 +1,6 @@
-/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
+import  { useState } from "react";
+
 const initialItems = [
   {
     id: 1,
@@ -37,23 +38,37 @@ function Logo() {
 }
 
 function Form() {
+  const [description, setDescription] = useState("");
+  const [quantity, setQuantity] = useState(7);
 
-  function handleSubmit(e){
+  function handleSubmit(e) {
     e.preventDefault();
-    console.log(e)
+
+    if(!description) return alert("Description is required.");
+    
+    const newItem = {description, quantity, packed: false, id: Date.now()};
+    console.log(newItem);
+    
+    setDescription("");
+    setQuantity("");
   }
 
   return (
     <form className="add-form" onSubmit={handleSubmit}>
-      <h3>What do you need your trip?</h3>
-      <select>
+      <h3>What do you need for your trip?</h3>
+      <select value={quantity} onChange={(e)=> setQuantity(Number(e.target.value))}>
         {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
           <option value={num} key={num}>
             {num}
           </option>
         ))}
       </select>
-      <input type="text" placeholder="Item..." />
+      <input
+        type="text"
+        placeholder="Item..."
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+      />
       <button>Add</button>
     </form>
   );
@@ -63,7 +78,7 @@ function PackingList() {
   return (
     <ul className="list">
       {initialItems.map((item) => (
-        <Item item={item} />
+        <Item key={item.id} item={item} />
       ))}
     </ul>
   );
@@ -73,8 +88,7 @@ function Item({ item }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
-        {item.quantity}
-        {item.description}
+        {item.quantity} {item.description}
       </span>
       <button>❌</button>
     </li>
@@ -84,7 +98,9 @@ function Item({ item }) {
 function Stats() {
   return (
     <footer className="stats">
-      <em>💼 You have x items on your list, and you already packed x (x%)</em>
+      <em>
+        💼 You have x items on your list, and you already packed x (x%)
+      </em>
     </footer>
   );
 }
