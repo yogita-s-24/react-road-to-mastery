@@ -1,4 +1,6 @@
-/* eslint-disable react/jsx-key */
+import { useState } from "react";
+import "./index.css";
+
 export default function App() {
   return (
     <div className="App">
@@ -13,7 +15,6 @@ const questions = [
     question: "How to give component memory?",
     answer: "useState Hook",
   },
-
   {
     id: 9200,
     question:
@@ -41,14 +42,26 @@ const questions = [
     answer: "Jsx",
   },
 ];
+
 function FlashCards() {
-  return(
-    <div>
+  const [selectedId, setSelectedId] = useState(null);
+
+  return (
+    <div className="flashcards">
       {questions.map((question) => (
-        <div>
-          <p>{question.question}</p>
+        <div key={question.id} className="flashcard">
+          <p
+            className="question"
+            onClick={() =>
+              setSelectedId(selectedId === question.id ? null : question.id)
+            }>
+            {question.question}
+          </p>
+          {selectedId === question.id && (
+            <p className="answer">{question.answer}</p>
+          )}
         </div>
       ))}
     </div>
-  ) 
+  );
 }
